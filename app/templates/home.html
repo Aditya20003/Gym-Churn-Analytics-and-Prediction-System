@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Dashboard Overview</h2>
+
+<!-- KPI CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+    <!-- Total Members -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow flex items-center justify-between">
+        <div>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">Total Members</p>
+            <p class="text-3xl font-bold text-blue-600">{{ total_members }}</p>
+        </div>
+        <i class="fa-solid fa-users text-3xl text-blue-400"></i>
+    </div>
+
+    <!-- Churned Members -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow flex items-center justify-between">
+        <div>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">Churned Members</p>
+            <p class="text-3xl font-bold text-red-500">{{ churned_members }}</p>
+        </div>
+        <i class="fa-solid fa-user-slash text-3xl text-red-400"></i>
+    </div>
+
+    <!-- Churn Rate -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow flex items-center justify-between">
+        <div>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">Churn Rate</p>
+            {% if total_members > 0 %}
+                <p class="text-3xl font-bold text-yellow-400">
+                    {{ ((churned_members / total_members) * 100) | round(1) }}%
+                </p>
+            {% else %}
+                <p class="text-3xl font-bold text-yellow-400">0%</p>
+            {% endif %}
+        </div>
+        <i class="fa-solid fa-chart-line text-3xl text-yellow-400"></i>
+    </div>
+
+</div>
+
+<!-- ACTION CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+        <h3 class="text-lg font-semibold mb-2">What this system does</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+            This application tracks member behavior, logs attendance,
+            detects churn using business rules, and predicts churn risk
+            using machine learning models.
+        </p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+        <h3 class="text-lg font-semibold mb-2">Recommended Actions</h3>
+        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300">
+            <li>Review high-risk members</li>
+            <li>Engage inactive members early</li>
+            <li>Monitor churn trends weekly</li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- QUICK LINKS -->
+<div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+    <h3 class="text-lg font-semibold mb-4">Quick Access</h3>
+
+    <div class="flex flex-wrap gap-4">
+        <a href="/members"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+            View Members
+        </a>
+
+        <a href="/add-member"
+           class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+            Add Member
+        </a>
+
+        <a href="/churn-predictions"
+           class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+            View Churn Risk
+        </a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Log Attendance</h2>
+
+<div class="max-w-xl bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+
+    <form method="POST" class="space-y-5">
+
+        <!-- Member Select -->
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                Select Member
+            </label>
+            <select name="member_id" required
+                    class="w-full p-2 rounded border dark:bg-gray-700 dark:border-gray-600">
+                {% for m in members %}
+                <option value="{{ m[0] }}">{{ m[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Visit Date -->
+        <div>
+            <label class="block text-sm font-medium mb-1">
+                Visit Date
+            </label>
+            <input type="date" name="visit_date" required
+                   class="w-full p-2 rounded border dark:bg-gray-700 dark:border-gray-600">
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">
+            Log Attendance
+        </button>
+
+    </form>
+</div>
+
+{% endblock %}

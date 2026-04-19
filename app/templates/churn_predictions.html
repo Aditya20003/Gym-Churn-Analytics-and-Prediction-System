@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Churn Risk Prediction</h2>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+    <table class="w-full">
+        <thead class="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-100">
+            <tr>
+                <th class="p-3 text-left">Member</th>
+                <th class="p-3 text-left">Churn Risk</th>
+                <th class="p-3 text-left">Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for r in results %}
+            {% set risk = r[1] * 100 %}
+            <tr class="border-b dark:border-gray-700">
+
+                <td class="p-3 font-medium">{{ r[0] }}</td>
+
+                <td class="p-3">{{ "%.1f"|format(risk) }}%</td>
+
+                <td class="p-3">
+                    {% if risk >= 70 %}
+                        <span class="text-red-500 font-bold">High Risk</span>
+                    {% elif risk >= 40 %}
+                        <span class="text-yellow-400 font-bold">Medium Risk</span>
+                    {% else %}
+                        <span class="text-green-500 font-bold">Low Risk</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
